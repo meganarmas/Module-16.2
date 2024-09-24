@@ -1,64 +1,49 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-export interface Comment {
-    title: string;
-    body: string;
-}
+const CommentForm = () => {
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
 
-const CommentForm: React.FC = () => {
-    const [comment, setComment] = useState<Comment>({ title: '', body: '' });
-    const [comments, setComments] = useState<Comment []>([]);
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent default form submission
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setComment(prev => ({ ... prev, [name]: value }));
-    };
+    // Create a comment object
+    const comment = { title, body };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setComments(prevComments => [... prevComments, comment]);
-        setComment({ title: '', body: '' });
-    };
+    // Store in localStorage
+    localStorage.setItem(`comment-${Date.now()}`, JSON.stringify(comment));
 
+    // Reset form fields
+    setTitle('');
+    setBody('');
+  };
 
-    return (
-        <div>
+  return (
+    <form onSubmit={handleSubmit}>
         <h1>Blog Posts</h1>
-        <form onSubmit={handleSubmit}>
-            <div>
-            <label htmlFor="title">Title:</label>
-            <input
-            type="text"
-            id="title"
-            placeholder= "Title"
-            onChange={handleChange}
-            required
-            />
-            </div>
-
-            <div>
-                <label htmlFor="body">Body:</label>
-                <textarea
-                id="body"
-                placeholder="Body"
-                onChange={handleChange}
-                required
-                />
-            </div>
-            <button type="submit">Submit</button>
-        </form>
-
-        <h2>Posts</h2>
-        <ul>
-            {comments.map((comment, index) => (
-                <li key={index}>
-                    <h4>{comment.title}</h4>
-                    <p>{comment.body}</p>
-                </li>
-            ))}
-        </ul>
-        </div>
-    );
+      <div>
+        <label htmlFor="title">Title:</label>
+        <input
+          id="title"
+          placeholder="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label htmlFor="body">Body:</label>
+        <textarea
+          id="body"
+          placeholder="Body"
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
+          required
+        />
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  );
 };
 
 export default CommentForm;
