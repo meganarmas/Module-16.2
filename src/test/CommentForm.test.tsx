@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import CommentForm from '../component/CommentForm';
+import '@testing-library/jest-dom';
 
 describe('CommentForm', () => {
     it('renders correctly', () => {

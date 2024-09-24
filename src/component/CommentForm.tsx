@@ -5,15 +5,13 @@ const CommentForm = () => {
   const [body, setBody] = useState('');
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault(); 
 
-    // Create a comment object
     const comment = { title, body };
 
-    // Store in localStorage
+
     localStorage.setItem(`comment-${Date.now()}`, JSON.stringify(comment));
 
-    // Reset form fields
     setTitle('');
     setBody('');
   };
