@@ -33,8 +33,8 @@ describe('CommentForm', () => {
     fireEvent.click(getByText(/submit/i));
 
     const keys = Object.keys(localStorage);
-    expect(keys.length).toBeGreaterThan(0); // Ensure something was stored
-    const storedComment = JSON.parse(localStorage.getItem(keys[0])); // Get the most recent item stored
+    expect(keys.length).toBeGreaterThan(0);
+    const storedComment = JSON.parse(localStorage.getItem(keys[0]));
 
     expect(storedComment).toEqual({ title: 'Test Title', body: 'Test Body' });
     });
