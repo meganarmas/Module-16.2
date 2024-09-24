@@ -23,19 +23,28 @@ describe('CommentForm', () => {
         expect(bodyInput.value).toBe('Test Body');
     });
   
-   it('submits the form and stores comment in localStorage', () => {
-    const { getByPlaceholderText, getByText } = render(<CommentForm />);
-    const titleInput = getByPlaceholderText(/title/i);
-    const bodyInput = getByPlaceholderText(/body/i);
-
-    fireEvent.change(titleInput, { target: { value: 'Test Title' } });
-    fireEvent.change(bodyInput, { target: { value: 'Test Body' } });
-    fireEvent.click(getByText(/submit/i));
-
-    const keys = Object.keys(localStorage);
-    expect(keys.length).toBeGreaterThan(0);
-    const storedComment = JSON.parse(localStorage.getItem(keys[0]));
-
-    expect(storedComment).toEqual({ title: 'Test Title', body: 'Test Body' });
+    it('submits the form and stores comment in localStorage', () => {
+      const { getByLabelText, getByText } = render(<CommentForm />);
+      
+      const titleInput = getByLabelText(/title/i) as HTMLInputElement;
+      const bodyInput = getByLabelText(/body/i) as HTMLTextAreaElement;
+    
+      // Simulate user input
+      fireEvent.change(titleInput, { target: { value: 'Test Title' } });
+      fireEvent.change(bodyInput, { target: { value: 'Test Body' } });
+    
+      // Simulate form submission
+      fireEvent.click(getByText(/submit/i));
+    
+      // Check if something was stored in localStorage
+      const keys = Object.keys(localStorage);
+      expect(keys.length).toBeGreaterThan(0); // Ensure something was stored
+    
+      // Safely retrieve and parse the comment from localStorage
+      const storedCommentString = localStorage.getItem(keys[0]);
+      expect(storedCommentString).not.toBeNull(); // Check if the item exists
+      const storedComment = JSON.parse(storedCommentString); // Now it's safe to parse
+    
+      expect(storedComment).toEqual({ title: 'Test Title', body: 'Test Body' });
     });
   });
