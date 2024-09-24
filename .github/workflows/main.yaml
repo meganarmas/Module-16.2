@@ -71,7 +71,7 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Login to Vercel
-        run: echo "${{ secrets.cFvBx0JTLR25c0ZcCwckQfop }}" | vercel login --token
+        run: vercel login --token${{ secrets.cFvBx0JTLR25c0ZcCwckQfop }}
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment-preview --token=${{ secrets.cFvBx0JTLR25c0ZcCwckQfop }}
