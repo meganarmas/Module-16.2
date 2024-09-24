@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Run test
-        run: npx test
+        run: npm test
       
       - name: Build
         run: npm run build
@@ -45,7 +45,7 @@ jobs:
         run: npm install
 
       - name: Run test
-        run: npx test
+        run: npm test
 
   deploy:
     needs: test
@@ -65,7 +65,7 @@ jobs:
         run: npm install
 
       - name: Run test
-        run: npx test
+        run: npm test
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
