@@ -7,9 +7,9 @@ on:
       - master
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
-
+    steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -37,9 +37,9 @@ jobs:
 
 
       - name: Set up Node.js
-        uses: actions/checkout
+        uses: actions/setup-node@v2
         with:
-          '20'
+          node-version: '20'
       
       - name: Install dependencies
         run: npm install
@@ -57,9 +57,9 @@ jobs:
 
 
       - name: Set up Node.js
-        uses: actions/checkout
+        uses: actions/setup-node@v2
         with:
-         '20'
+          node-version: '20'
         
       - name: Install dependencies
         run: npm install
