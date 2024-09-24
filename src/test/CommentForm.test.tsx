@@ -28,26 +28,18 @@ describe('CommentForm', () => {
       
       const titleInput = getByLabelText(/title/i) as HTMLInputElement;
       const bodyInput = getByLabelText(/body/i) as HTMLTextAreaElement;
-    
-      // Simulate user input
+  
       fireEvent.change(titleInput, { target: { value: 'Test Title' } });
       fireEvent.change(bodyInput, { target: { value: 'Test Body' } });
     
-      // Simulate form submission
       fireEvent.click(getByText(/submit/i));
     
-      // Check if something was stored in localStorage
       const keys = Object.keys(localStorage);
-      expect(keys.length).toBeGreaterThan(0); // Ensure something was stored
-    
-      // Safely retrieve and parse the comment from localStorage
+      expect(keys.length).toBeGreaterThan(0);
       const storedCommentString = localStorage.getItem(keys[0]);
+      expect(storedCommentString).not.toBeNull(); 
     
-      // Check if the item exists and is a string
-      expect(storedCommentString).not.toBeNull(); // Check if the item exists
-    
-      // Type assertion: if not null, treat it as a string
-      const storedComment = JSON.parse(storedCommentString!); // Use the non-null assertion operator
+      const storedComment = JSON.parse(storedCommentString!);
     
       expect(storedComment).toEqual({ title: 'Test Title', body: 'Test Body' });
     });
