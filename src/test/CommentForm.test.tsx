@@ -11,15 +11,16 @@ describe('CommentForm', () => {
     });
   
     it('handles input changes', () => {
-      const { getByPlaceholderText } = render(<CommentForm />);
-      const titleInput = getByPlaceholderText(/title/i);
-      const bodyInput = getByPlaceholderText(/body/i);
-  
-      fireEvent.change(titleInput, { target: { value: 'Test Title' } });
-      fireEvent.change(bodyInput, { target: { value: 'Test Body' } });
-  
-      expect(titleInput.value).toBe('Test Title');
-      expect(bodyInput.value).toBe('Test Body');
+        const { getByLabelText } = render(<CommentForm />);
+        
+        const titleInput = getByLabelText(/title/i) as HTMLInputElement;
+        const bodyInput = getByLabelText(/body/i) as HTMLTextAreaElement;
+    
+        fireEvent.change(titleInput, { target: { value: 'Test Title' } });
+        fireEvent.change(bodyInput, { target: { value: 'Test Body' } });
+    
+        expect(titleInput.value).toBe('Test Title');
+        expect(bodyInput.value).toBe('Test Body');
     });
   
    it('submits the form and stores comment in localStorage', () => {
