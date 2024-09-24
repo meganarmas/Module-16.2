@@ -42,8 +42,12 @@ describe('CommentForm', () => {
     
       // Safely retrieve and parse the comment from localStorage
       const storedCommentString = localStorage.getItem(keys[0]);
+    
+      // Check if the item exists and is a string
       expect(storedCommentString).not.toBeNull(); // Check if the item exists
-      const storedComment = JSON.parse(storedCommentString); // Now it's safe to parse
+    
+      // Type assertion: if not null, treat it as a string
+      const storedComment = JSON.parse(storedCommentString!); // Use the non-null assertion operator
     
       expect(storedComment).toEqual({ title: 'Test Title', body: 'Test Body' });
     });
